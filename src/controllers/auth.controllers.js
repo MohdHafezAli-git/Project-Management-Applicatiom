@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/async-handler.js";
 import { emailVerificationMailgenContent, sendEmail ,forgotPasswordMailgenContent } from "../utils/mail.js";
 import crypto from "crypto"
 import jwt from "jsonwebtoken"
+import mongoose, { Mongoose } from "mongoose";
 
 
 const generateAccessAndRefreshTokens = async (userId)=>{
@@ -66,13 +67,7 @@ const registerUser = asyncHandler(async (req , res) =>{
     if (!createdUser){
         throw new ApiError(500 , "something went wrong while registering user")
     }
-
-    console.log({
-        rawToken : unHashedToken,
-        hashedToken
-    });
     
-
     return res.status(201).json(new ApiResponse(
         200, 
         {user: createdUser},

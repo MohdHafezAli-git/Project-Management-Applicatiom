@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { AvailableUserRole } from "../utils/constants.js"
 
 const userRegisterValidator = () =>{
     return[
@@ -66,10 +67,89 @@ const userResetForgotPasswordValidator = ()=>{
       .withMessage("Password is required")
    ]
 }
+
+const createProjectValidator = ()=>{
+   return [
+      body("name")
+        .notEmpty()
+        .withMessage("Name is required"),
+      body("description")
+        .optional()
+   ]
+} 
+
+const addMembersToProjectValidator = ()=>{
+   return [
+      body("email")
+        .trim()
+        .notEmpty()
+        .withMessage("Email is required")
+        .isEmail()
+        .withMessage("Email is invalid"),
+      body("role")
+        .notEmpty()
+        .withMessage("Role is required")
+        .isIn(AvailableUserRole)
+        .withMessage("Role is invalid")
+
+
+   ]
+}
+
+const createTaskValidator = ()=>{
+   return [
+      body("title")
+      .notEmpty()
+      .withMessage("Task title is required"),
+      body("description")
+      .optional()
+   ]
+}
+
+const updateTaskValidator = ()=>{
+   return [
+      body("title")
+      .notEmpty()
+      .withMessage("Task title is required"),
+      body("description")
+      .optional()
+   ]
+}
+
+const createSubTaskValidator = ()=>{
+   return [
+      body("title")
+      .notEmpty()
+      .withMessage("Sub task title is required"),
+      body("description")
+      .optional()
+   ]
+}
+
+const updateSubTaskValidator = ()=>{
+   return [
+      body("title")
+        .optional()
+        .notEmpty(),
+      body("isCompleted")
+        .optional()
+        .isBoolean()
+        .withMessage("isCompleted must be true or false")
+
+   ]
+}
+
+
 export {
     userRegisterValidator ,
     userLoginValidate,
     userChangeCurrentPasswordValidator,
     userForgotPasswordValidator,
-    userResetForgotPasswordValidator
+    userResetForgotPasswordValidator,
+    createProjectValidator,
+    addMembersToProjectValidator,
+    createTaskValidator,
+    updateTaskValidator,
+    createSubTaskValidator,
+    updateSubTaskValidator
 }
