@@ -1,2 +1,3 @@
-# Project-Management-Applicatiom
-A RESTful Project Management API built with Node.js, Express.js, MongoDB, and JWT Authentication.
+# Project Management API
+
+A backend application built with Node.js, Express.js, and MongoDB that provides authentication, project management, task management, subtask management, and role-based access control.
